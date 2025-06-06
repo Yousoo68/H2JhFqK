@@ -58,63 +58,6 @@
         사진을 클릭하면 감상 하실 수 있습니다.
     </div>
 
-    <div class="text red-text">
-        섹시유수 독자들을 대상으로 만들었기에<br>
-        그동안 쁘띠유수에서는 볼 수 없었던 욕설이 포함 되어 있습니다.<br>
-        감상에 주의 바랍니다. 그래도 쁘띠유수에도 공개를 해야하니 수위를 어느정도 낮췄습니다☺
-    </div>
-
-    <div class="spacer"></div>
-
-    <div class="large-text">
-        2025년
-    </div>
-
-    <div class="button">
-        <a href="#" id="day1Button"><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Day1.jpg" alt="Day1 Image"></a>
-    </div>
-
-    <div class="button">
-        <a href="#" id="day2Button"><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" alt="Day2 Image"></a>
-    </div>
-
-    <script>
-        // 사이트 경유 경로 체크
-        if (document.referrer !== "https://yousoo68.github.io/fjYxbSA/") {
-            window.location.href = "https://yousoo68.github.io/fjYxbSA/";
-        }
-
-        // 코드 실행 변수
-        let codeRunning = false;
-
-        // 이미지 버튼 클릭 시 실행되는 코드
-        document.getElementById("day1Button").addEventListener("click", function(event) {
-            event.preventDefault();  // 링크 기본 동작 막기
-            if (!codeRunning) {
-                console.log("ㅇㅇㅇㅇㅇ 코드 실행");
-                codeRunning = true;
-            }
-        });
-
-        document.getElementById("day2Button").addEventListener("click", function(event) {
-            event.preventDefault();  // 링크 기본 동작 막기
-            if (!codeRunning) {
-                console.log("ㅎㅎㅎㅎㅎ 코드 실행");
-                codeRunning = true;
-            }
-        });
-
-        // 뒤로가기 버튼을 눌렀을 때 코드 off
-        window.addEventListener("popstate", function(event) {
-            if (codeRunning) {
-                console.log("코드 종료");
-                codeRunning = false;
-            }
-        });
-
-        // 페이지 로드 시 히스토리 상태 초기화
-        history.pushState({}, "");
-
     </script>
 
 </body>
