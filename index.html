@@ -47,6 +47,13 @@
       font-size:14px;z-index:1000;display:none}
     .logout-btn{margin-left:8px;background:var(--error);color:white;border:none;
       border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
+
+    /* ✅ 추가: 짧은 텍스트에 대한 스타일 */
+    .short-text {
+      font-size: 24px;
+      text-align: center;
+      margin: 60px 0;
+    }
   </style>
 </head>
 <body>
@@ -123,7 +130,13 @@
     const txtMap = imageTextMap[file];
     const msg = txtMap ? (isReader ? txtMap.reader : txtMap.guest) : "준비중...";
     const pop = document.getElementById('popup');
-    pop.querySelector('#popup-text').innerHTML = msg;
+    const popupText = pop.querySelector('#popup-text');
+
+    popupText.textContent = msg;
+
+    // ✅ 수정: 짧은 텍스트에 클래스 추가
+    popupText.className = msg.length < 30 ? 'short-text' : '';
+
     pop.style.display = 'flex';
   }
 
