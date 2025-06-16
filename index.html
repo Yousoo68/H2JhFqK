@@ -183,14 +183,7 @@
   function isAuthorized() {
     return currentUser && !isGuest && sexyyousoo_reader.includes(currentUser.email);
   }
-
-  function showPopupForImage(img) {
-    if (isAuthorized()) {
-      showPopup(imageMessages[img.src] || "미오픈");
-    } else {
-      showPopup("준비중...");
-    }
-  }
+ }
 </script>
 </body>
 </html>
