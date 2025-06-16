@@ -6,83 +6,64 @@
   <title>섹시유수의 여행일지</title>
   <style>
     :root {
-      --primary: #4361ee; --secondary: #3f37c9; --accent: #4895ef;
-      --light: #f8f9fa; --dark: #212529; --success: #4bb543;
-      --error: #ff3333; --radius: 8px; --shadow: 0 4px 12px rgba(0,0,0,0.1);
-      --transition: all 0.3s ease;
+      --primary:#4361ee;--secondary:#3f37c9;--accent:#4895ef;
+      --light:#f8f9fa;--dark:#212529;--success:#4bb543;
+      --error:#ff3333;--radius:8px;--shadow:0 4px 12px rgba(0,0,0,0.1);
+      --transition:all 0.3s ease;
     }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f8f9fb; margin: 0; padding: 20px; color: var(--dark);
-      display: flex; flex-direction: column; align-items: center;
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      background:#f8f9fb;margin:0;padding:20px;color:var(--dark);
+      display:flex;flex-direction:column;align-items:center;
     }
-    .image-container img { width: 100%; max-width: 600px; border-radius: 10px; }
-    .text { font-size: 50px; font-weight: bold; margin: 10px 0; color: black; }
-    .button-group { display: flex; flex-direction: column; align-items: center; margin-top: 20px; }
-    .toggle-button {
-      margin: 10px 0; padding: 12px 24px; font-size: 16pt; font-weight: 600;
-      background-color: #6c9bd2; color: white; border: none; border-radius: 30px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;
-    }
-    .toggle-button:hover { background-color: #5a8ac2; transform: translateY(-2px); }
-    .toggle-wrapper { display: none; margin-top: 10px; }
-    .toggle-wrapper img {
-      width: 100%; max-width: 300px; cursor: pointer; border-radius: 10px; margin-bottom: 10px;
-    }
-    .popup {
-      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000;
-    }
-    .popup-content {
-      background: white; padding: 20px; border-radius: 12px; max-width: 400px;
-      width: 90%; text-align: left; position: relative; box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    }
-    .close-btn {
-      position: absolute; top: 10px; right: 10px; font-size: 18px; background: none;
-      border: none; cursor: pointer; font-weight: bold;
-    }
-    .auth-container {
-      background: white; border-radius: var(--radius); box-shadow: var(--shadow);
-      width: 90%; max-width: 500px; margin-bottom: 30px;
-    }
-    .tab-content { padding: 2rem; }
-    .btn { background: var(--primary); color: white; padding: 0.8rem;
-      border: none; border-radius: var(--radius); font-size: 1rem; font-weight: 600;
-      cursor: pointer; transition: var(--transition); width: 100%; margin-top: 10px;
-    }
-    .btn-guest { background: #6c757d; }
-    .btn-google { background: #4285F4; display: flex; align-items: center; justify-content: center; }
-    .user-info {
-      position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%);
-      background: white; padding: 8px 12px; border-radius: 20px;
-      box-shadow: var(--shadow); font-size: 14px; z-index: 1000; display: none;
-    }
-    .logout-btn {
-      margin-left: 8px; background: var(--error); color: white; border: none;
-      border-radius: 4px; padding: 4px 8px; font-size: 12px; cursor: pointer;
-    }
+    .image-container img{width:100%;max-width:600px;border-radius:10px}
+    .text{font-size:50px;font-weight:bold;margin:10px 0;color:black}
+    .button-group{display:flex;flex-direction:column;align-items:center;margin-top:20px}
+    .toggle-button{margin:10px 0;padding:12px 24px;font-size:16pt;font-weight:600;
+      background:#6c9bd2;color:white;border:none;border-radius:30px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.1);cursor:pointer}
+    .toggle-button:hover{background:#5a8ac2;transform:translateY(-2px)}
+    .toggle-wrapper{display:none;margin-top:10px}
+    .toggle-wrapper img{width:100%;max-width:300px;cursor:pointer;
+      border-radius:10px;margin-bottom:10px}
+    .popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:1000}
+    .popup-content{background:white;padding:20px;border-radius:12px;max-width:400px;
+      width:90%;text-align:left;position:relative;box-shadow:0 8px 16px rgba(0,0,0,0.2)}
+    .close-btn{position:absolute;top:10px;right:10px;font-size:18px;background:none;
+      border:none;cursor:pointer;font-weight:bold}
+    .auth-container{background:white;border-radius:var(--radius);box-shadow:var(--shadow);
+      width:90%;max-width:500px;margin-bottom:30px}
+    .tab-content{padding:2rem}
+    .btn{background:var(--primary);color:white;padding:0.8rem;border:none;
+      border-radius:var(--radius);font-size:1rem;font-weight:600;
+      cursor:pointer;transition:var(--transition);width:100%;margin-top:10px}
+    .btn-guest{background:#6c757d}
+    .btn-google{background:#4285F4;display:flex;align-items:center;justify-content:center}
+    .user-info{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
+      background:white;padding:8px 12px;border-radius:20px;box-shadow:var(--shadow);
+      font-size:14px;z-index:1000;display:none}
+    .logout-btn{margin-left:8px;background:var(--error);color:white;border:none;
+      border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
   </style>
 </head>
 <body>
 
-<!-- 접근 제한 -->
 <script>
-  if (document.referrer !== "https://yousoo68.github.io/fjYxbSA/") {
-    window.location.href = "https://yousoo68.github.io/fjYxbSA/";
-  }
-  if (window.location.hostname !== "yousoo68.github.io") {
-    document.body.innerHTML = "<h1 style='text-align: center; margin-top: 50px; color: var(--primary);'>이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.</h1>";
-    setTimeout(() => window.location.href = "https://yousoo68.github.io/fjYxbSA/", 5000);
+  if (document.referrer !== "https://yousoo68.github.io/fjYxbSA/")
+    location.href = "https://yousoo68.github.io/fjYxbSA/";
+  if (location.hostname !== "yousoo68.github.io") {
+    document.body.innerHTML = "<h1 style='text-align:center;margin-top:50px;color:var(--primary);'>이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.</h1>";
+    setTimeout(() => location.href = "https://yousoo68.github.io/fjYxbSA/", 5000);
   }
 </script>
 
-<!-- 로그인 UI -->
 <div class="auth-container" id="auth-container">
   <div class="tab-content">
     <button id="guest-login-btn" class="btn btn-guest">Guest로 로그인</button>
     <button id="google-login-btn" class="btn btn-google">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" style="width:18px;height:18px;margin-right:8px">
-        <path fill="white" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
+        <path fill="white" d="M488 261.8C488 403.3 391.1 504 248 504C110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
       </svg>Google로 로그인
     </button>
   </div>
@@ -92,28 +73,29 @@
   <button id="logout-btn" class="logout-btn">로그아웃</button>
 </div>
 
-<!-- 여행일지 본문 -->
-<div class="image-container">
-  <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Travel2.jpg" alt="Travel Image">
-</div>
-<div class="text">2025년</div>
-<div class="button-group">
-  <button class="toggle-button" onclick="toggleContent('toggleWrapper1')">강릉</button>
-  <div class="toggle-wrapper" id="toggleWrapper1">
-    <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg" onclick="showPopup('준비중...')">
-    <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" onclick="showPopup('준비중...')">
-    <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg" onclick="showPopup('준비중...')">
+<div id="content" style="display:none">
+  <div class="image-container">
+    <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Travel2.jpg" alt="Travel Image">
   </div>
-  <button class="toggle-button" onclick="toggleContent('toggleWrapper2')">춘천</button>
-  <div class="toggle-wrapper" id="toggleWrapper2">
-    <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg" onclick="showPopup('준비중...')">
-    <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg" onclick="showPopup('준비중...')">
+  <div class="text">2025년</div>
+  <div class="button-group">
+    <button class="toggle-button" onclick="toggleContent('toggleWrapper1')">강릉</button>
+    <div class="toggle-wrapper" id="toggleWrapper1">
+      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg" onclick="showPopup('준비중...')">
+      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" onclick="showPopup('준비중...')">
+      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg" onclick="showPopup('준비중...')">
+    </div>
+    <button class="toggle-button" onclick="toggleContent('toggleWrapper2')">춘천</button>
+    <div class="toggle-wrapper" id="toggleWrapper2">
+      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg" onclick="showPopup('준비중...')">
+      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg" onclick="showPopup('준비중...')">
+    </div>
   </div>
-</div>
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <button class="close-btn" onclick="closePopup()">X</button>
-    <p id="popup-text"></p>
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <button class="close-btn" onclick="closePopup()">X</button>
+      <p id="popup-text"></p>
+    </div>
   </div>
 </div>
 
@@ -121,12 +103,14 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script>
   const P_READER = ["fjrtufl9909@gmail.com","minjune003956@gmail.com","sexyyousoo68@gmail.com"];
-  firebase.initializeApp({ apiKey: "AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
-    authDomain: "login-34bef.firebaseapp.com",
-    projectId: "login-34bef",
-    storageBucket: "login-34bef.appspot.com",
-    messagingSenderId: "888738257773",
-    appId: "1:888738257773:web:b1c5a99b41996c3ac2d864" });
+  firebase.initializeApp({
+    apiKey:"AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
+    authDomain:"login-34bef.firebaseapp.com",
+    projectId:"login-34bef",
+    storageBucket:"login-34bef.appspot.com",
+    messagingSenderId:"888738257773",
+    appId:"1:888738257773:web:b1c5a99b41996c3ac2d864"
+  });
 
   const auth = firebase.auth();
   const authContainer = document.getElementById('auth-container');
@@ -135,6 +119,7 @@
   const googleLoginBtn = document.getElementById('google-login-btn');
   const userInfo = document.getElementById('user-info');
   const userEmail = document.getElementById('user-email');
+  const content = document.getElementById('content');
   let currentUser = null, isGuest = false;
 
   guestLoginBtn.onclick = () => {
@@ -142,30 +127,25 @@
     currentUser = { email: '게스트로 로그인 중', isGuest: true };
     updateUI();
   };
-
   googleLoginBtn.onclick = async () => {
     try {
       const result = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
       currentUser = result.user;
       isGuest = false;
       updateUI();
-    } catch (e) {
-      console.error('Google 로그인 오류:', e);
-    }
+    } catch (e) { console.error('Google 로그인 오류:', e); }
   };
-
   logoutBtn.onclick = () => {
     currentUser = null;
     isGuest ? updateUI() : auth.signOut().then(updateUI).catch(console.error);
   };
-
   function updateUI() {
     const show = currentUser !== null;
     authContainer.style.display = show ? 'none' : 'block';
     userInfo.style.display = show ? 'flex' : 'none';
+    content.style.display = show ? 'block' : 'none';
     if (show) userEmail.textContent = currentUser.email;
   }
-
   auth.onAuthStateChanged(user => {
     if (user) currentUser = user;
     updateUI();
@@ -173,17 +153,16 @@
   updateUI();
 
   function toggleContent(id) {
-    const wrapper = document.getElementById(id);
-    wrapper.style.display = wrapper.style.display === 'block' ? 'none' : 'block';
+    const el = document.getElementById(id);
+    el.style.display = el.style.display === 'block' ? 'none' : 'block';
   }
-  function showPopup(message) {
-    document.getElementById('popup-text').textContent = message;
+  function showPopup(msg) {
+    document.getElementById('popup-text').textContent = msg;
     document.getElementById('popup').style.display = 'flex';
   }
   function closePopup() {
     document.getElementById('popup').style.display = 'none';
   }
 </script>
-
 </body>
 </html>
