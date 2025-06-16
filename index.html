@@ -1,60 +1,203 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>섹시유수의 여행일지</title>
-  <style>
-    :root {
-      --primary:#4361ee;--secondary:#3f37c9;--accent:#4895ef;
-      --light:#f8f9fa;--dark:#212529;--success:#4bb543;
-      --error:#ff3333;--radius:8px;--shadow:0 4px 12px rgba(0,0,0,0.1);
-      --transition:all 0.3s ease;
-    }
-    body {
-      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-      background:#f8f9fb;margin:0;padding:20px;color:var(--dark);
-      display:flex;flex-direction:column;align-items:center;
-    }
-    .image-container img{width:100%;max-width:600px;border-radius:10px}
-    .text{font-size:50px;font-weight:bold;margin:10px 0;color:black}
-    .button-group{display:flex;flex-direction:column;align-items:center;margin-top:20px}
-    .toggle-button{margin:10px 0;padding:12px 24px;font-size:16pt;font-weight:600;
-      background:#6c9bd2;color:white;border:none;border-radius:30px;
-      box-shadow:0 4px 8px rgba(0,0,0,0.1);cursor:pointer}
-    .toggle-button:hover{background:#5a8ac2;transform:translateY(-2px)}
-    .toggle-wrapper{display:none;margin-top:10px}
-    .toggle-wrapper img{width:100%;max-width:300px;cursor:pointer;
-      border-radius:10px;margin-bottom:10px}
-    .popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-      background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:1000;
-      overflow-y:auto;padding:20px}
-    .popup-content{background:white;padding:20px;border-radius:12px;max-width:800px;
-      max-height:90vh;overflow-y:auto;width:90%;text-align:left;position:relative;
-      box-shadow:0 8px 16px rgba(0,0,0,0.2)}
-    .close-btn{position:absolute;top:10px;right:10px;font-size:18px;background:none;
-      border:none;cursor:pointer;font-weight:bold}
-    .auth-container{background:white;border-radius:var(--radius);box-shadow:var(--shadow);
-      width:90%;max-width:500px;margin-bottom:30px}
-    .tab-content{padding:2rem}
-    .btn{background:var(--primary);color:white;padding:0.8rem;border:none;
-      border-radius:var(--radius);font-size:1rem;font-weight:600;
-      cursor:pointer;transition:var(--transition);width:100%;margin-top:10px}
-    .btn-guest{background:#6c757d}
-    .btn-google{background:#4285F4;display:flex;align-items:center;justify-content:center}
-    .user-info{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
-      background:white;padding:8px 12px;border-radius:20px;box-shadow:var(--shadow);
-      font-size:14px;z-index:1000;display:none}
-    .logout-btn{margin-left:8px;background:var(--error);color:white;border:none;
-      border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>섹시유수의 여행일지</title>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #4bb543;
+      --error: #ff3333;
+      --radius: 10px;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
 
-    /* ✅ 추가: 짧은 텍스트에 대한 스타일 */
-    .short-text {
-      font-size: 24px;
-      text-align: center;
-      margin: 60px 0;
-    }
-  </style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--light);
+      margin: 0;
+      padding: 1rem;
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .image-container {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .image-container img {
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .text {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      text-align: center;
+      color: var(--primary);
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      max-width: 400px;
+      margin-top: 1.5rem;
+    }
+
+    .toggle-button {
+      width: 100%;
+      padding: 0.9rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .toggle-button:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .toggle-wrapper {
+      display: none;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .toggle-wrapper img {
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 1.2rem;
+      border-radius: var(--radius);
+      max-width: 90vw;
+      max-height: 80vh;
+      overflow-y: auto;
+      text-align: center;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 1.2rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .short-text {
+      font-size: 1.2rem;
+      margin: 2rem 0;
+    }
+
+    .auth-container {
+      background: white;
+      padding: 1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 2rem;
+    }
+
+    .tab-content {
+      text-align: center;
+    }
+
+    .btn {
+      padding: 0.8rem;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-guest {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-google {
+      background: #4285F4;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-google svg {
+      margin-right: 8px;
+    }
+
+    .user-info {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      font-size: 0.9rem;
+      z-index: 1000;
+      display: none;
+    }
+
+    .logout-btn {
+      margin-left: 8px;
+      background: var(--error);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
