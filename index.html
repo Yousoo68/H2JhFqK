@@ -81,14 +81,14 @@
   <div class="button-group">
     <button class="toggle-button" onclick="toggleContent('toggleWrapper1')">강릉</button>
     <div class="toggle-wrapper" id="toggleWrapper1">
-      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg" onclick="showPopup('준비중...')">
-      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" onclick="showPopup('준비중...')">
-      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg" onclick="showPopup('준비중...')">
+      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg" onclick="showPopupForImage(this)">
+      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" onclick="showPopupForImage(this)">
+      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg" onclick="showPopupForImage(this)">
     </div>
     <button class="toggle-button" onclick="toggleContent('toggleWrapper2')">춘천</button>
     <div class="toggle-wrapper" id="toggleWrapper2">
-      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg" onclick="showPopup('준비중...')">
-      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg" onclick="showPopup('준비중...')">
+      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg" onclick="showPopupForImage(this)">
+      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg" onclick="showPopupForImage(this)">
     </div>
   </div>
   <div class="popup" id="popup">
@@ -103,6 +103,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script>
   const sexyyousoo_reader = ["fjrtufl9909@gmail.com","minjune003956@gmail.com","sexyyousoo68@gmail.com"];
+  
   firebase.initializeApp({
     apiKey:"AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
     authDomain:"login-34bef.firebaseapp.com",
@@ -120,6 +121,7 @@
   const userInfo = document.getElementById('user-info');
   const userEmail = document.getElementById('user-email');
   const content = document.getElementById('content');
+
   let currentUser = null, isGuest = false;
 
   guestLoginBtn.onclick = () => {
@@ -137,8 +139,10 @@
   };
   logoutBtn.onclick = () => {
     currentUser = null;
-    isGuest ? updateUI() : auth.signOut().then(updateUI).catch(console.error);
+    if (isGuest) updateUI();
+    else auth.signOut().then(updateUI).catch(console.error);
   };
+
   function updateUI() {
     const show = currentUser !== null;
     authContainer.style.display = show ? 'none' : 'block';
@@ -146,6 +150,7 @@
     content.style.display = show ? 'block' : 'none';
     if (show) userEmail.textContent = currentUser.email;
   }
+
   auth.onAuthStateChanged(user => {
     if (user) currentUser = user;
     updateUI();
@@ -156,12 +161,35 @@
     const el = document.getElementById(id);
     el.style.display = el.style.display === 'block' ? 'none' : 'block';
   }
+
+  // 팝업 함수들
   function showPopup(msg) {
     document.getElementById('popup-text').textContent = msg;
     document.getElementById('popup').style.display = 'flex';
   }
   function closePopup() {
     document.getElementById('popup').style.display = 'none';
+  }
+
+  // 이미지별 메시지 매핑
+  const imageMessages = {
+    "https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg": "미오픈1",
+    "https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg": "미오픈2",
+    "https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg": "미오픈3",
+    "https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg": "미오픈4",
+    "https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg": "미오픈5",
+  };
+
+  function isAuthorized() {
+    return currentUser && !isGuest && sexyyousoo_reader.includes(currentUser.email);
+  }
+
+  function showPopupForImage(img) {
+    if (isAuthorized()) {
+      showPopup(imageMessages[img.src] || "미오픈");
+    } else {
+      showPopup("준비중...");
+    }
   }
 </script>
 </body>
