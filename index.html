@@ -81,14 +81,14 @@
   <div class="button-group">
     <button class="toggle-button" onclick="toggleContent('toggleWrapper1')">강릉</button>
     <div class="toggle-wrapper" id="toggleWrapper1">
-      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg" onclick="showPopupForImage('1')">
-      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" onclick="showPopupForImage('2')">
-      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg" onclick="showPopupForImage('3')">
+      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg" onclick="showPopupForImage(this)">
+      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" onclick="showPopupForImage(this)">
+      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg" onclick="showPopupForImage(this)">
     </div>
     <button class="toggle-button" onclick="toggleContent('toggleWrapper2')">춘천</button>
     <div class="toggle-wrapper" id="toggleWrapper2">
-      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg" onclick="showPopupForImage('4')">
-      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg" onclick="showPopupForImage('5')">
+      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg" onclick="showPopupForImage(this)">
+      <br><img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg" onclick="showPopupForImage(this)">
     </div>
   </div>
   <div class="popup" id="popup">
@@ -173,7 +173,7 @@
 
   // 이미지별 메시지 매핑
   const imageMessages = {
-    "https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg": "미오픈임1",
+    "https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg": "미오픈1",
     "https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg": "미오픈2",
     "https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg": "미오픈3",
     "https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg": "미오픈4",
@@ -183,7 +183,14 @@
   function isAuthorized() {
     return currentUser && !isGuest && sexyyousoo_reader.includes(currentUser.email);
   }
- }
+
+  function showPopupForImage(img) {
+    if (isAuthorized()) {
+      showPopup(imageMessages[img.src] || "미오픈");
+    } else {
+      showPopup("준비중...");
+    }
+  }
 </script>
 </body>
 </html>
