@@ -1,216 +1,227 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>섹시유수의 여행일지</title>
-  <style>
-    /* (생략: 기존 스타일 그대로) */
-    :root {
-      --primary:#4361ee;--secondary:#3f37c9;--accent:#4895ef;
-      --light:#f8f9fa;--dark:#212529;--success:#4bb543;
-      --error:#ff3333;--radius:8px;--shadow:0 4px 12px rgba(0,0,0,0.1);
-      --transition:all 0.3s ease;
-    }
-    body {
-      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-      background:#f8f9fb;margin:0;padding:20px;color:var(--dark);
-      display:flex;flex-direction:column;align-items:center;
-    }
-    /* ... 기존 스타일 유지 ... */
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>섹시유수의 여행일지</title>
+  <style>
+    :root {
+      --primary:#4361ee;--secondary:#3f37c9;--accent:#4895ef;
+      --light:#f8f9fa;--dark:#212529;--success:#4bb543;
+      --error:#ff3333;--radius:8px;--shadow:0 4px 12px rgba(0,0,0,0.1);
+      --transition:all 0.3s ease;
+    }
+    body {
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      background:#f8f9fb;margin:0;padding:20px;color:var(--dark);
+      display:flex;flex-direction:column;align-items:center;
+    }
+    .image-container img{width:100%;max-width:600px;border-radius:10px;cursor:pointer;}
+    .text{font-size:50px;font-weight:bold;margin:10px 0;color:black}
+    .button-group{display:flex;flex-direction:column;align-items:center;margin-top:20px}
+    .toggle-button{margin:10px 0;padding:12px 24px;font-size:16pt;font-weight:600;
+      background:#6c9bd2;color:white;border:none;border-radius:30px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.1);cursor:pointer}
+    .toggle-button:hover{background:#5a8ac2;transform:translateY(-2px)}
+    .toggle-wrapper{display:none;margin-top:10px}
+    .toggle-wrapper img{width:100%;max-width:300px;
+      border-radius:10px;margin-bottom:10px;cursor:pointer;}
+    .auth-container{background:white;border-radius:var(--radius);box-shadow:var(--shadow);
+      width:90%;max-width:500px;margin-bottom:30px}
+    .tab-content{padding:2rem}
+    .btn{background:var(--primary);color:white;padding:0.8rem;border:none;
+      border-radius:var(--radius);font-size:1rem;font-weight:600;
+      cursor:pointer;transition:var(--transition);width:100%;margin-top:10px}
+    .btn-guest{background:#6c757d}
+    .btn-google{background:#4285F4;display:flex;align-items:center;justify-content:center}
+    .user-info{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
+      background:white;padding:8px 12px;border-radius:20px;box-shadow:var(--shadow);
+      font-size:14px;z-index:1000;display:none}
+    .logout-btn{margin-left:8px;background:var(--error);color:white;border:none;
+      border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
+  </style>
 </head>
 <body style="display:none;">
 
-  <!-- 접근 제한 메시지 -->
-  <div id="redirect-message" style="display:none; text-align:center; margin-top:50px;">
-    <h1 style="color:#4361ee;">이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.</h1>
-    <button onclick="location.href='https://yousoo68.github.io/fjYxbSA/'" style="
-      background-color: #3f37c9; color: white; padding: 12px 24px;
-      border: none; border-radius: 8px; font-size: 16px;
-      cursor: pointer; margin-top:30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-      섹시유수 갤러리 페이지로 이동
-    </button>
-  </div>
+  <!-- 접근 제한 메시지 -->
+  <div id="redirect-message" style="display:none; text-align:center; margin-top:50px;">
+    <h1 style="color:#4361ee;">이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.</h1>
+    <button onclick="location.href='https://yousoo68.github.io/fjYxbSA/'" style="
+      background-color: #3f37c9; color: white; padding: 12px 24px;
+      border: none; border-radius: 8px; font-size: 16px;
+      cursor: pointer; margin-top:30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      섹시유수 갤러리 페이지로 이동
+    </button>
+  </div>
 
-  <div id="main-app" style="display:none;">
-    <div class="auth-container" id="auth-container">
-      <div class="tab-content">
-        <button id="guest-login-btn" class="btn btn-guest">Guest로 로그인</button>
-        <button id="google-login-btn" class="btn btn-google">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" style="width:18px;height:18px;margin-right:8px">
-            <path fill="white" d="M488 261.8C488 403.3 391.1 504 248 504C110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
-          </svg>Google로 로그인
-        </button>
-      </div>
-    </div>
+  <!-- 전체 콘텐츠 영역 -->
+  <div id="main-app" style="display:none;">
 
-    <div class="user-info" id="user-info">
-      <span id="user-email"></span>
-      <button id="logout-btn" class="logout-btn">로그아웃</button>
-    </div>
+    <div class="auth-container" id="auth-container">
+      <div class="tab-content">
+        <button id="guest-login-btn" class="btn btn-guest">Guest로 로그인</button>
+        <button id="google-login-btn" class="btn btn-google">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" style="width:18px;height:18px;margin-right:8px">
+            <path fill="white" d="M488 261.8C488 403.3 391.1 504 248 504C110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
+          </svg>Google로 로그인
+        </button>
+      </div>
+    </div>
 
-    <div id="content" style="display:none;">
-      <div class="image-container">
-        <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Travel2.jpg" alt="Travel Image">
-      </div>
-      <div class="text">2025년</div>
-      <div class="button-group">
-        <button class="toggle-button" onclick="toggleContent('toggleWrapper1')">강릉</button>
-        <div class="toggle-wrapper" id="toggleWrapper1">
-          <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg" alt="day1">
-          <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" alt="day2">
-          <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg" alt="day3">
-        </div>
-        <button class="toggle-button" onclick="toggleContent('toggleWrapper2')">춘천</button>
-        <div class="toggle-wrapper" id="toggleWrapper2">
-          <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg" alt="Fjsuq">
-          <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg" alt="Hfzdyijc">
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="user-info" id="user-info">
+      <span id="user-email"></span>
+      <button id="logout-btn" class="logout-btn">로그아웃</button>
+    </div>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <div id="content" style="display:none;">
+      <div class="image-container">
+        <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Travel2.jpg" alt="Travel Image">
+      </div>
+      <div class="text">2025년</div>
+      <div class="button-group">
+        <button class="toggle-button" onclick="toggleContent('toggleWrapper1')">강릉</button>
+        <div class="toggle-wrapper" id="toggleWrapper1">
+          <img id="day1" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg" alt="day1">
+          <img id="day2" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" alt="day2">
+          <img id="day3" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg" alt="day3">
+        </div>
+        <button class="toggle-button" onclick="toggleContent('toggleWrapper2')">춘천</button>
+        <div class="toggle-wrapper" id="toggleWrapper2">
+          <img id="Fjsuq" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg" alt="Fjsuq">
+          <img id="Hfzdyijc" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg" alt="Hfzdyijc">
+        </div>
+      </div>
+    </div>
 
-  <script>
-    const allowedReferrer = "https://yousoo68.github.io/fjYxbSA/";
-    const allowedHost = "yousoo68.github.io";
-    const passed = document.referrer === allowedReferrer && window.location.hostname === allowedHost;
+  </div>
 
-    document.body.style.display = 'block';
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
-    if (!passed) {
-      document.getElementById("redirect-message").style.display = 'block';
-    } else {
-      document.getElementById("main-app").style.display = 'block';
+  <script>
+    const allowedReferrer = "https://yousoo68.github.io/fjYxbSA/";
+    const allowedHost = "yousoo68.github.io";
+    const passed = document.referrer === allowedReferrer && window.location.hostname === allowedHost;
 
-      firebase.initializeApp({
-        apiKey: "AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
-        authDomain: "login-34bef.firebaseapp.com",
-        projectId: "login-34bef",
-        storageBucket: "login-34bef.appspot.com",
-        messagingSenderId: "888738257773",
-        appId: "1:888738257773:web:b1c5a99b41996c3ac2d864"
-      });
+    document.body.style.display = 'block';
 
-      const auth = firebase.auth();
-      const authContainer = document.getElementById('auth-container');
-      const logoutBtn = document.getElementById('logout-btn');
-      const guestLoginBtn = document.getElementById('guest-login-btn');
-      const googleLoginBtn = document.getElementById('google-login-btn');
-      const userInfo = document.getElementById('user-info');
-      const userEmail = document.getElementById('user-email');
-      const content = document.getElementById('content');
+    if (!passed) {
+      document.getElementById("redirect-message").style.display = 'block';
+    } else {
+      document.getElementById("main-app").style.display = 'block';
 
-      const pReaderEmails = [
-        "reader1@example.com",
-        "reader2@example.com",
-        "reader3@example.com"
-      ];
+      // Firebase 설정
+      firebase.initializeApp({
+        apiKey: "AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
+        authDomain: "login-34bef.firebaseapp.com",
+        projectId: "login-34bef",
+        storageBucket: "login-34bef.appspot.com",
+        messagingSenderId: "888738257773",
+        appId: "1:888738257773:web:b1c5a99b41996c3ac2d864"
+      });
 
-      let currentUser = null, isGuest = false, isPReader = false;
+      const auth = firebase.auth();
+      const authContainer = document.getElementById('auth-container');
+      const logoutBtn = document.getElementById('logout-btn');
+      const guestLoginBtn = document.getElementById('guest-login-btn');
+      const googleLoginBtn = document.getElementById('google-login-btn');
+      const userInfo = document.getElementById('user-info');
+      const userEmail = document.getElementById('user-email');
+      const content = document.getElementById('content');
 
-      guestLoginBtn.onclick = () => {
-        isGuest = true;
-        isPReader = false;
-        currentUser = { email: '게스트로 로그인 중', isGuest: true };
-        updateUI();
-      };
+      let currentUser = null, isGuest = false;
+      // P_READER 이메일 목록 - 필요시 여기에 추가
+      const pReaderEmails = ['preader@example.com', 'example@domain.com'];
 
-      googleLoginBtn.onclick = async () => {
-        try {
-          const result = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-          currentUser = result.user;
-          isGuest = false;
-          isPReader = pReaderEmails.includes(currentUser.email);
-          updateUI();
-        } catch (e) {
-          console.error('Google 로그인 오류:', e);
-        }
-      };
+      guestLoginBtn.onclick = () => {
+        isGuest = true;
+        currentUser = { email: '게스트로 로그인 중', isGuest: true };
+        updateUI();
+      };
 
-      logoutBtn.onclick = () => {
-        currentUser = null;
-        isGuest = false;
-        isPReader = false;
-        auth.signOut().then(updateUI).catch(console.error);
-      };
+      googleLoginBtn.onclick = async () => {
+        try {
+          const result = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+          currentUser = result.user;
+          isGuest = false;
+          updateUI();
+        } catch (e) {
+          console.error('Google 로그인 오류:', e);
+        }
+      };
 
-      function updateUI() {
-        const show = currentUser !== null;
-        authContainer.style.display = show ? 'none' : 'block';
-        userInfo.style.display = show ? 'flex' : 'none';
-        content.style.display = show ? 'block' : 'none';
-        if (show) userEmail.textContent = currentUser.email;
-        attachImageClickHandlers();
-      }
+      logoutBtn.onclick = () => {
+        currentUser = null;
+        if (isGuest) {
+          isGuest = false;
+          updateUI();
+        } else {
+          auth.signOut().then(() => {
+            updateUI();
+          }).catch(console.error);
+        }
+      };
 
-      auth.onAuthStateChanged(user => {
-        if (user) {
-          currentUser = user;
-          isGuest = false;
-          isPReader = pReaderEmails.includes(user.email);
-        } else {
-          currentUser = null;
-          isGuest = false;
-          isPReader = false;
-        }
-        updateUI();
-      });
+      function updateUI() {
+        const show = currentUser !== null;
+        authContainer.style.display = show ? 'none' : 'block';
+        userInfo.style.display = show ? 'flex' : 'none';
+        content.style.display = show ? 'block' : 'none';
+        if (show) userEmail.textContent = currentUser.email;
+      }
 
-      function attachImageClickHandlers() {
-        if (!content.style.display || content.style.display === 'none') return;
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          currentUser = user;
+          isGuest = false;
+        }
+        updateUI();
+      });
 
-        const day1 = document.querySelector("#toggleWrapper1 img:nth-child(1)");
-        const day2 = document.querySelector("#toggleWrapper1 img:nth-child(2)");
-        const day3 = document.querySelector("#toggleWrapper1 img:nth-child(3)");
+      updateUI();
 
-        const fjsuq = document.querySelector("#toggleWrapper2 img:nth-child(1)");
-        const hfzdyijc = document.querySelector("#toggleWrapper2 img:nth-child(2)");
+      // 이미지 클릭 리디렉션 함수
+      function redirectByRoleAndImage(imageId) {
+        const email = currentUser?.email?.toLowerCase() || "";
+        const isPReader = pReaderEmails.some(e => e.toLowerCase() === email);
+        const isGuestOrNonPReader = isGuest || !isPReader;
 
-        // 게스트, 일반, P_READER에 따른 URL 리디렉션 처리 함수
-        function redirectForGangneung(day) {
-          if (!currentUser) return;
+        // 강릉 이미지별 기본 URL
+        const gangneungUrls = {
+          day1: isPReader ? 'https://gangneung1s.pages.dev' : 'https://gangneung1.pages.dev',
+          day2: isPReader ? 'https://gangneung2s.pages.dev' : 'https://gangneung2.pages.dev',
+          day3: isPReader ? 'https://gangneung3s.pages.dev' : 'https://gangneung3.pages.dev',
+        };
+        // 춘천 이미지별 기본 URL
+        const chuncheonUrls = {
+          Fjsuq: isPReader ? 'https://chuncheon1s.pages.dev' : 'https://chuncheon1.pages.dev',
+          Hfzdyijc: isPReader ? 'https://chuncheon2s.pages.dev' : 'https://chuncheon2.pages.dev',
+        };
 
-          if (isPReader) {
-            window.location.href = `https://gangneung${day}s.pages.dev`;
-          } else {
-            // 게스트 및 일반 계정 모두 같은 URL
-            window.location.href = `https://gangneung${day}.pages.dev`;
-          }
-        }
+        if (gangneungUrls[imageId]) {
+          location.href = gangneungUrls[imageId];
+        } else if (chuncheonUrls[imageId]) {
+          location.href = chuncheonUrls[imageId];
+        }
+      }
 
-        function redirectForChuncheon(site) {
-          if (!currentUser) return;
+      // 이미지에 클릭 이벤트 등록
+      ['day1', 'day2', 'day3', 'Fjsuq', 'Hfzdyijc'].forEach(id => {
+        const img = document.getElementById(id);
+        if (img) {
+          img.addEventListener('click', () => {
+            redirectByRoleAndImage(id);
+          });
+        }
+      });
 
-          if (isPReader) {
-            window.location.href = `https://chuncheon${site}s.pages.dev`;
-          } else {
-            window.location.href = `https://chuncheon${site}.pages.dev`;
-          }
-        }
-
-        [day1, day2, day3, fjsuq, hfzdyijc].forEach(img => {
-          if (!img) return;
-          img.onclick = null;
-        });
-
-        if (day1) day1.onclick = () => redirectForGangneung(1);
-        if (day2) day2.onclick = () => redirectForGangneung(2);
-        if (day3) day3.onclick = () => redirectForGangneung(3);
-        if (fjsuq) fjsuq.onclick = () => redirectForChuncheon(1);
-        if (hfzdyijc) hfzdyijc.onclick = () => redirectForChuncheon(2);
-      }
-
-      updateUI();
-
-      window.toggleContent = function(id) {
-        const el = document.getElementById(id);
-        el.style.display = el.style.display === 'block' ? 'none' : 'block';
-      };
-    }
-  </script>
+      // 토글 토글 함수
+      window.toggleContent = function(id) {
+        const el = document.getElementById(id);
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+      };
+    }
+  </script>
 </body>
 </html>
