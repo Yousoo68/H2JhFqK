@@ -41,148 +41,138 @@
       border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
   </style>
 </head>
-<body>
+<body style="display:none;">
 
-<script>
-  // 경유 확인
-  if (document.referrer !== "https://yousoo68.github.io/fjYxbSA/") {
-    document.body.innerHTML = `
-      <h1 style="text-align: center; margin-top: 50px; color: #4361ee;">
-        이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.
-      </h1>
-      <div style="text-align: center; margin-top: 30px;">
-        <button onclick="location.href='https://yousoo68.github.io/fjYxbSA/'" style="
-          background-color: #3f37c9;
-          color: white;
-          padding: 12px 24px;
-          border: none;
-          border-radius: 8px;
-          font-size: 16px;
-          cursor: pointer;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        ">
-          섹시유수 갤러리 페이지로 이동
-        </button>
-      </div>
-    `;
-  }
-
-  // 도메인 확인 (예비 방어용, 원래 도메인이 아닐 경우)
-  if (window.location.hostname !== "yousoo68.github.io") {
-    document.body.innerHTML = `
-      <h1 style="text-align: center; margin-top: 50px; color: #4361ee;">
-        이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.
-      </h1>
-      <div style="text-align: center; margin-top: 30px;">
-        <button onclick="location.href='https://yousoo68.github.io/fjYxbSA/'" style="
-          background-color: #3f37c9;
-          color: white;
-          padding: 12px 24px;
-          border: none;
-          border-radius: 8px;
-          font-size: 16px;
-          cursor: pointer;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        ">
-          섹시유수 갤러리 페이지로 이동
-        </button>
-      </div>
-    `;
-  }
-</script>
-
-<div class="auth-container" id="auth-container">
-  <div class="tab-content">
-    <button id="guest-login-btn" class="btn btn-guest">Guest로 로그인</button>
-    <button id="google-login-btn" class="btn btn-google">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" style="width:18px;height:18px;margin-right:8px">
-        <path fill="white" d="M488 261.8C488 403.3 391.1 504 248 504C110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
-      </svg>Google로 로그인
+  <!-- 접근 제한 메시지 -->
+  <div id="redirect-message" style="display:none; text-align:center; margin-top:50px;">
+    <h1 style="color:#4361ee;">이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.</h1>
+    <button onclick="location.href='https://yousoo68.github.io/fjYxbSA/'" style="
+      background-color: #3f37c9; color: white; padding: 12px 24px;
+      border: none; border-radius: 8px; font-size: 16px;
+      cursor: pointer; margin-top:30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      섹시유수 갤러리 페이지로 이동
     </button>
   </div>
-</div>
-<div class="user-info" id="user-info">
-  <span id="user-email"></span>
-  <button id="logout-btn" class="logout-btn">로그아웃</button>
-</div>
 
-<div id="content" style="display:none">
-  <div class="image-container">
-    <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Travel2.jpg" alt="Travel Image">
-  </div>
-  <div class="text">2025년</div>
-  <div class="button-group">
-    <button class="toggle-button" onclick="toggleContent('toggleWrapper1')">강릉</button>
-    <div class="toggle-wrapper" id="toggleWrapper1">
-      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg">
-      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg">
-      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg">
+  <!-- 전체 콘텐츠 영역 -->
+  <div id="main-app" style="display:none;">
+
+    <div class="auth-container" id="auth-container">
+      <div class="tab-content">
+        <button id="guest-login-btn" class="btn btn-guest">Guest로 로그인</button>
+        <button id="google-login-btn" class="btn btn-google">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" style="width:18px;height:18px;margin-right:8px">
+            <path fill="white" d="M488 261.8C488 403.3 391.1 504 248 504C110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
+          </svg>Google로 로그인
+        </button>
+      </div>
     </div>
-    <button class="toggle-button" onclick="toggleContent('toggleWrapper2')">춘천</button>
-    <div class="toggle-wrapper" id="toggleWrapper2">
-      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg">
-      <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg">
+
+    <div class="user-info" id="user-info">
+      <span id="user-email"></span>
+      <button id="logout-btn" class="logout-btn">로그아웃</button>
     </div>
+
+    <div id="content" style="display:none;">
+      <div class="image-container">
+        <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Travel2.jpg" alt="Travel Image">
+      </div>
+      <div class="text">2025년</div>
+      <div class="button-group">
+        <button class="toggle-button" onclick="toggleContent('toggleWrapper1')">강릉</button>
+        <div class="toggle-wrapper" id="toggleWrapper1">
+          <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg">
+          <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg">
+          <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg">
+        </div>
+        <button class="toggle-button" onclick="toggleContent('toggleWrapper2')">춘천</button>
+        <div class="toggle-wrapper" id="toggleWrapper2">
+          <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg">
+          <img src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg">
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script>
-  const P_READER = ["fjrtufl9909@gmail.com","minjune003956@gmail.com","sexyyousoo68@gmail.com"];
-  firebase.initializeApp({
-    apiKey:"AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
-    authDomain:"login-34bef.firebaseapp.com",
-    projectId:"login-34bef",
-    storageBucket:"login-34bef.appspot.com",
-    messagingSenderId:"888738257773",
-    appId:"1:888738257773:web:b1c5a99b41996c3ac2d864"
-  });
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
-  const auth = firebase.auth();
-  const authContainer = document.getElementById('auth-container');
-  const logoutBtn = document.getElementById('logout-btn');
-  const guestLoginBtn = document.getElementById('guest-login-btn');
-  const googleLoginBtn = document.getElementById('google-login-btn');
-  const userInfo = document.getElementById('user-info');
-  const userEmail = document.getElementById('user-email');
-  const content = document.getElementById('content');
-  let currentUser = null, isGuest = false;
+  <script>
+    const allowedReferrer = "https://yousoo68.github.io/fjYxbSA/";
+    const allowedHost = "yousoo68.github.io";
+    const passed = document.referrer === allowedReferrer && window.location.hostname === allowedHost;
 
-  guestLoginBtn.onclick = () => {
-    isGuest = true;
-    currentUser = { email: '게스트로 로그인 중', isGuest: true };
-    updateUI();
-  };
-  googleLoginBtn.onclick = async () => {
-    try {
-      const result = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      currentUser = result.user;
-      isGuest = false;
+    document.body.style.display = 'block';
+
+    if (!passed) {
+      document.getElementById("redirect-message").style.display = 'block';
+    } else {
+      document.getElementById("main-app").style.display = 'block';
+
+      // Firebase 설정
+      firebase.initializeApp({
+        apiKey: "AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
+        authDomain: "login-34bef.firebaseapp.com",
+        projectId: "login-34bef",
+        storageBucket: "login-34bef.appspot.com",
+        messagingSenderId: "888738257773",
+        appId: "1:888738257773:web:b1c5a99b41996c3ac2d864"
+      });
+
+      const auth = firebase.auth();
+      const authContainer = document.getElementById('auth-container');
+      const logoutBtn = document.getElementById('logout-btn');
+      const guestLoginBtn = document.getElementById('guest-login-btn');
+      const googleLoginBtn = document.getElementById('google-login-btn');
+      const userInfo = document.getElementById('user-info');
+      const userEmail = document.getElementById('user-email');
+      const content = document.getElementById('content');
+      let currentUser = null, isGuest = false;
+
+      guestLoginBtn.onclick = () => {
+        isGuest = true;
+        currentUser = { email: '게스트로 로그인 중', isGuest: true };
+        updateUI();
+      };
+
+      googleLoginBtn.onclick = async () => {
+        try {
+          const result = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+          currentUser = result.user;
+          isGuest = false;
+          updateUI();
+        } catch (e) {
+          console.error('Google 로그인 오류:', e);
+        }
+      };
+
+      logoutBtn.onclick = () => {
+        currentUser = null;
+        isGuest ? updateUI() : auth.signOut().then(updateUI).catch(console.error);
+      };
+
+      function updateUI() {
+        const show = currentUser !== null;
+        authContainer.style.display = show ? 'none' : 'block';
+        userInfo.style.display = show ? 'flex' : 'none';
+        content.style.display = show ? 'block' : 'none';
+        if (show) userEmail.textContent = currentUser.email;
+      }
+
+      auth.onAuthStateChanged(user => {
+        if (user) currentUser = user;
+        updateUI();
+      });
+
       updateUI();
-    } catch (e) { console.error('Google 로그인 오류:', e); }
-  };
-  logoutBtn.onclick = () => {
-    currentUser = null;
-    isGuest ? updateUI() : auth.signOut().then(updateUI).catch(console.error);
-  };
-  function updateUI() {
-    const show = currentUser !== null;
-    authContainer.style.display = show ? 'none' : 'block';
-    userInfo.style.display = show ? 'flex' : 'none';
-    content.style.display = show ? 'block' : 'none';
-    if (show) userEmail.textContent = currentUser.email;
-  }
-  auth.onAuthStateChanged(user => {
-    if (user) currentUser = user;
-    updateUI();
-  });
-  updateUI();
 
-  function toggleContent(id) {
-    const el = document.getElementById(id);
-    el.style.display = el.style.display === 'block' ? 'none' : 'block';
-  }
-</script>
+      window.toggleContent = function(id) {
+        const el = document.getElementById(id);
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+      };
+    }
+  </script>
 </body>
 </html>
