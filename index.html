@@ -44,12 +44,54 @@
 <body>
 
 <script>
-  if (document.referrer !== "https://yousoo68.github.io/fjYxbSA/")
-    location.href = "https://yousoo68.github.io/fjYxbSA/";
-  if (location.hostname !== "yousoo68.github.io") {
-    document.body.innerHTML = "<h1 style='text-align:center;margin-top:50px;color:var(--primary);'>이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.</h1>";
-    setTimeout(() => location.href = "https://yousoo68.github.io/fjYxbSA/", 5000);
-  }
+
+  if (document.referrer !== "https://yousoo68.github.io/fjYxbSA/") {
+  // 텍스트와 버튼만 표시하고 자동 리디렉션은 하지 않음
+  document.body.innerHTML = `
+    <h1 style="text-align: center; margin-top: 50px; color: #4361ee;">
+      이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.
+    </h1>
+    <div style="text-align: center; margin-top: 30px;">
+      <button onclick="location.href='https://yousoo68.github.io/fjYxbSA/'" style="
+        background-color: #3f37c9;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      ">
+        섹시유수 갤러리 페이지로 이동
+      </button>
+    </div>
+  `;
+}
+
+// 도메인 확인
+if (window.location.hostname !== "yousoo68.github.io") {
+  // 경고 메시지 + 버튼 표시 (리디렉션 없음)
+  document.body.innerHTML = `
+    <h1 style="text-align: center; margin-top: 50px; color: #4361ee;">
+      이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.
+    </h1>
+    <div style="text-align: center; margin-top: 30px;">
+      <button onclick="location.href='https://yousoo68.github.io/H2JhFqK/'" style="
+        background-color: #3f37c9;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      ">
+        섹시유수의 여행일지 페이지로 이동
+      </button>
+    </div>
+  `;
+}
+
 </script>
 
 <div class="auth-container" id="auth-container">
