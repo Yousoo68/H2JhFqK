@@ -43,7 +43,6 @@
 </head>
 <body style="display:none;">
 
-  <!-- 접근 제한 메시지 -->
   <div id="redirect-message" style="display:none; text-align:center; margin-top:50px;">
     <h1 style="color:#4361ee;">이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.</h1>
     <button onclick="location.href='https://yousoo68.github.io/fjYxbSA/'" style="
@@ -54,9 +53,7 @@
     </button>
   </div>
 
-  <!-- 전체 콘텐츠 영역 -->
   <div id="main-app" style="display:none;">
-
     <div class="auth-container" id="auth-container">
       <div class="tab-content">
         <button id="guest-login-btn" class="btn btn-guest">Guest로 로그인</button>
@@ -81,21 +78,19 @@
       <div class="button-group">
         <button class="toggle-button" onclick="toggleContent('toggleWrapper1')">강릉</button>
         <div class="toggle-wrapper" id="toggleWrapper1">
-          <img id="day1" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg" alt="day1">
-          <img id="day2" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" alt="day2">
-          <img id="day3" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg" alt="day3">
+          <a id="link-day1" target="_blank"><img id="day1" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day1.jpg" alt="day1"></a>
+          <a id="link-day2" target="_blank"><img id="day2" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day2.jpg" alt="day2"></a>
+          <a id="link-day3" target="_blank"><img id="day3" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/day3.jpg" alt="day3"></a>
         </div>
         <button class="toggle-button" onclick="toggleContent('toggleWrapper2')">춘천</button>
         <div class="toggle-wrapper" id="toggleWrapper2">
-          <img id="Fjsuq" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg" alt="Fjsuq">
-          <img id="Hfzdyijc" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg" alt="Hfzdyijc">
+          <a id="link-Fjsuq" target="_blank"><img id="Fjsuq" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Fjsuq.jpg" alt="Fjsuq"></a>
+          <a id="link-Hfzdyijc" target="_blank"><img id="Hfzdyijc" src="https://raw.githubusercontent.com/Yousoo68/H2JhFqK/refs/heads/main/Hfzdyijc.jpg" alt="Hfzdyijc"></a>
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
@@ -129,6 +124,7 @@
       const userEmail = document.getElementById('user-email');
       const content = document.getElementById('content');
 
+      const pReaderEmails = ['sexyyousoo68@gmail.com'];
       let currentUser = null, isGuest = false;
 
       guestLoginBtn.onclick = () => {
@@ -166,6 +162,22 @@
         userInfo.style.display = show ? 'flex' : 'none';
         content.style.display = show ? 'block' : 'none';
         if (show) userEmail.textContent = currentUser.email;
+
+        const email = currentUser?.email?.toLowerCase() || "";
+        const isPReader = pReaderEmails.includes(email);
+
+        const links = {
+          day1: isPReader ? 'gangneung1s.html' : 'gangneung1.html',
+          day2: isPReader ? 'gangneung2s.html' : 'gangneung2.html',
+          day3: isPReader ? 'gangneung3s.html' : 'gangneung3.html',
+          Fjsuq: isPReader ? 'chuncheon1s.html' : 'chuncheon1.html',
+          Hfzdyijc: isPReader ? 'chuncheon2s.html' : 'chuncheon2.html'
+        };
+
+        for (let id in links) {
+          const anchor = document.getElementById(`link-${id}`);
+          if (anchor) anchor.href = links[id];
+        }
       }
 
       auth.onAuthStateChanged(user => {
