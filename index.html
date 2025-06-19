@@ -4,6 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>섹시유수의 여행일지</title>
+
+  <script>
+    // A사이트 주소 (정확한 URL 입력)
+    const allowedReferrer = "https://a-site.com";
+
+    // 현재 페이지를 A사이트를 통해 들어왔는지 검사
+    if (document.referrer.indexOf(allowedReferrer) !== 0) {
+      // 리디렉션 또는 차단 메시지 표시
+      alert("A사이트를 통해서만 접속할 수 있습니다.");
+      window.location.href = "https://a-site.com";
+    }
+  </script>
+
   <style>
     :root {
       --primary:#4361ee;--secondary:#3f37c9;--accent:#4895ef;
@@ -41,19 +54,9 @@
       border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
   </style>
 </head>
-<body style="display:none;">
+<body>
 
-  <div id="redirect-message" style="display:none; text-align:center; margin-top:50px;">
-    <h1 style="color:#4361ee;">이 페이지는 섹시유수 갤러리를 통해서만 접속할 수 있습니다.</h1>
-    <button onclick="location.href='https://yousoo68.github.io/fjYxbSA/'" style="
-      background-color: #3f37c9; color: white; padding: 12px 24px;
-      border: none; border-radius: 8px; font-size: 16px;
-      cursor: pointer; margin-top:30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-      섹시유수 갤러리 페이지로 이동
-    </button>
-  </div>
-
-  <div id="main-app" style="display:none;">
+  <div id="main-app">
     <div class="auth-container" id="auth-container">
       <div class="tab-content">
         <button id="guest-login-btn" class="btn btn-guest">Guest로 로그인</button>
@@ -95,106 +98,94 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
   <script>
-    const allowedReferrer = "https://yousoo68.github.io/fjYxbSA/";
-    const allowedHost = "yousoo68.github.io";
-    const passed = document.referrer === allowedReferrer && window.location.hostname === allowedHost;
+    firebase.initializeApp({
+      apiKey: "AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
+      authDomain: "login-34bef.firebaseapp.com",
+      projectId: "login-34bef",
+      storageBucket: "login-34bef.appspot.com",
+      messagingSenderId: "888738257773",
+      appId: "1:888738257773:web:b1c5a99b41996c3ac2d864"
+    });
 
-    document.body.style.display = 'block';
+    const auth = firebase.auth();
+    const authContainer = document.getElementById('auth-container');
+    const logoutBtn = document.getElementById('logout-btn');
+    const guestLoginBtn = document.getElementById('guest-login-btn');
+    const googleLoginBtn = document.getElementById('google-login-btn');
+    const userInfo = document.getElementById('user-info');
+    const userEmail = document.getElementById('user-email');
+    const content = document.getElementById('content');
 
-    if (!passed) {
-      document.getElementById("redirect-message").style.display = 'block';
-    } else {
-      document.getElementById("main-app").style.display = 'block';
+    const pReaderEmails = ['sexyyousoo68@gmail.com'];
+    let currentUser = null, isGuest = false;
 
-      firebase.initializeApp({
-        apiKey: "AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
-        authDomain: "login-34bef.firebaseapp.com",
-        projectId: "login-34bef",
-        storageBucket: "login-34bef.appspot.com",
-        messagingSenderId: "888738257773",
-        appId: "1:888738257773:web:b1c5a99b41996c3ac2d864"
-      });
-
-      const auth = firebase.auth();
-      const authContainer = document.getElementById('auth-container');
-      const logoutBtn = document.getElementById('logout-btn');
-      const guestLoginBtn = document.getElementById('guest-login-btn');
-      const googleLoginBtn = document.getElementById('google-login-btn');
-      const userInfo = document.getElementById('user-info');
-      const userEmail = document.getElementById('user-email');
-      const content = document.getElementById('content');
-
-      const pReaderEmails = ['sexyyousoo68@gmail.com'];
-      let currentUser = null, isGuest = false;
-
-      guestLoginBtn.onclick = () => {
-        isGuest = true;
-        currentUser = { email: '게스트로 로그인 중', isGuest: true };
-        updateUI();
-      };
-
-      googleLoginBtn.onclick = async () => {
-        try {
-          const result = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-          currentUser = result.user;
-          isGuest = false;
-          updateUI();
-        } catch (e) {
-          console.error('Google 로그인 오류:', e);
-        }
-      };
-
-      logoutBtn.onclick = () => {
-        currentUser = null;
-        if (isGuest) {
-          isGuest = false;
-          updateUI();
-        } else {
-          auth.signOut().then(() => {
-            updateUI();
-          }).catch(console.error);
-        }
-      };
-
-      function updateUI() {
-        const show = currentUser !== null;
-        authContainer.style.display = show ? 'none' : 'block';
-        userInfo.style.display = show ? 'flex' : 'none';
-        content.style.display = show ? 'block' : 'none';
-        if (show) userEmail.textContent = currentUser.email;
-
-        const email = currentUser?.email?.toLowerCase() || "";
-        const isPReader = pReaderEmails.includes(email);
-
-        const links = {
-          day1: isPReader ? 'gangneung1s.html' : 'gangneung1.html',
-          day2: isPReader ? 'gangneung2s.html' : 'gangneung2.html',
-          day3: isPReader ? 'gangneung3s.html' : 'gangneung3.html',
-          Fjsuq: isPReader ? 'chuncheon1s.html' : 'chuncheon1.html',
-          Hfzdyijc: isPReader ? 'chuncheon2s.html' : 'chuncheon2.html'
-        };
-
-        for (let id in links) {
-          const anchor = document.getElementById(`link-${id}`);
-          if (anchor) anchor.href = links[id];
-        }
-      }
-
-      auth.onAuthStateChanged(user => {
-        if (user) {
-          currentUser = user;
-          isGuest = false;
-        }
-        updateUI();
-      });
-
+    guestLoginBtn.onclick = () => {
+      isGuest = true;
+      currentUser = { email: '게스트로 로그인 중', isGuest: true };
       updateUI();
+    };
 
-      window.toggleContent = function(id) {
-        const el = document.getElementById(id);
-        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    googleLoginBtn.onclick = async () => {
+      try {
+        const result = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        currentUser = result.user;
+        isGuest = false;
+        updateUI();
+      } catch (e) {
+        console.error('Google 로그인 오류:', e);
+      }
+    };
+
+    logoutBtn.onclick = () => {
+      currentUser = null;
+      if (isGuest) {
+        isGuest = false;
+        updateUI();
+      } else {
+        auth.signOut().then(() => {
+          updateUI();
+        }).catch(console.error);
+      }
+    };
+
+    function updateUI() {
+      const show = currentUser !== null;
+      authContainer.style.display = show ? 'none' : 'block';
+      userInfo.style.display = show ? 'flex' : 'none';
+      content.style.display = show ? 'block' : 'none';
+      if (show) userEmail.textContent = currentUser.email;
+
+      const email = currentUser?.email?.toLowerCase() || "";
+      const isPReader = pReaderEmails.includes(email);
+
+      const links = {
+        day1: isPReader ? 'gangneung1s.html' : 'gangneung1.html',
+        day2: isPReader ? 'gangneung2s.html' : 'gangneung2.html',
+        day3: isPReader ? 'gangneung3s.html' : 'gangneung3.html',
+        Fjsuq: isPReader ? 'chuncheon1s.html' : 'chuncheon1.html',
+        Hfzdyijc: isPReader ? 'chuncheon2s.html' : 'chuncheon2.html'
       };
+
+      for (let id in links) {
+        const anchor = document.getElementById(`link-${id}`);
+        if (anchor) anchor.href = links[id];
+      }
     }
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        currentUser = user;
+        isGuest = false;
+      }
+      updateUI();
+    });
+
+    updateUI();
+
+    window.toggleContent = function(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    };
   </script>
 </body>
 </html>
