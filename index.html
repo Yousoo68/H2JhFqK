@@ -111,7 +111,6 @@
     } else {
       document.getElementById("main-app").style.display = 'block';
 
-      // Firebase 설정
       firebase.initializeApp({
         apiKey: "AIzaSyClivXSor5P8XJHw1rWYsVfxt8iU6_NgBA",
         authDomain: "login-34bef.firebaseapp.com",
@@ -131,8 +130,6 @@
       const content = document.getElementById('content');
 
       let currentUser = null, isGuest = false;
-      // P_READER 이메일 목록 - 필요시 여기에 추가
-      const pReaderEmails = ['sexyyousoo68@gmail.com', 'example@domain.com'];
 
       guestLoginBtn.onclick = () => {
         isGuest = true;
@@ -181,42 +178,6 @@
 
       updateUI();
 
-      // 이미지 클릭 리디렉션 함수
-      function redirectByRoleAndImage(imageId) {
-        const email = currentUser?.email?.toLowerCase() || "";
-        const isPReader = pReaderEmails.some(e => e.toLowerCase() === email);
-        const isGuestOrNonPReader = isGuest || !isPReader;
-
-        // 강릉 이미지별 기본 URL
-        const gangneungUrls = {
-          day1: isPReader ? 'https://gangneung1s.pages.dev' : 'https://gangneung1.pages.dev',
-          day2: isPReader ? 'https://gangneung2s.pages.dev' : 'https://gangneung2.pages.dev',
-          day3: isPReader ? 'https://gangneung3s.pages.dev' : 'https://gangneung3.pages.dev',
-        };
-        // 춘천 이미지별 기본 URL
-        const chuncheonUrls = {
-          Fjsuq: isPReader ? 'https://chuncheon1s.pages.dev' : 'https://chuncheon1.pages.dev',
-          Hfzdyijc: isPReader ? 'https://chuncheon2s.pages.dev' : 'https://chuncheon2.pages.dev',
-        };
-
-        if (gangneungUrls[imageId]) {
-          location.href = gangneungUrls[imageId];
-        } else if (chuncheonUrls[imageId]) {
-          location.href = chuncheonUrls[imageId];
-        }
-      }
-
-      // 이미지에 클릭 이벤트 등록
-      ['day1', 'day2', 'day3', 'Fjsuq', 'Hfzdyijc'].forEach(id => {
-        const img = document.getElementById(id);
-        if (img) {
-          img.addEventListener('click', () => {
-            redirectByRoleAndImage(id);
-          });
-        }
-      });
-
-      // 토글 토글 함수
       window.toggleContent = function(id) {
         const el = document.getElementById(id);
         el.style.display = el.style.display === 'block' ? 'none' : 'block';
