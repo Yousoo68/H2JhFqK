@@ -22,171 +22,40 @@
 </script>
 
   <style>
-    :root {
-      --primary:#4361ee;--secondary:#3f37c9;--accent:#4895ef;
-      --light:#f8f9fa;--dark:#212529;--success:#4bb543;
-      --error:#ff3333;--radius:8px;--shadow:0 4px 12px rgba(0,0,0,0.1);
-      --transition:all 0.3s ease;
-    }
-    html, body {
-      margin:0; padding:0; height:100%;
-      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-      background:#f8f9fb;
-      color:var(--dark);
-    }
-    body {
-      display:flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 15px 10px;
-      min-height: 100vh;
-    }
-    .auth-container {
-      background: white;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      width: 100%;
-      max-width: 400px;
-      padding: 24px 20px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .btn {
-      width: 100%;
-      padding: 14px 0;
-      font-size: 18px;
-      font-weight: 700;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .btn-guest {
-      background: #6c757d;
-      color: white;
-    }
-    .btn-guest:hover {
-      background: #5a6268;
-    }
-    .btn-google {
-      background: #4285F4;
-      color: white;
-    }
-    .btn-google:hover {
-      background: #357ae8;
-    }
-    .btn-google svg {
-      width: 20px;
-      height: 20px;
-      margin-right: 12px;
-    }
-    .user-info {
-      position: fixed;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: white;
-      padding: 8px 14px;
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      font-size: 14px;
-      z-index: 1000;
-      display: none;
-      align-items: center;
-    }
-    .logout-btn {
-      margin-left: 10px;
-      background: var(--error);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 13px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .logout-btn:hover {
-      background: #cc2929;
-    }
-    #content {
-      display: none;
-      width: 100%;
-      max-width: 600px;
-      margin-top: 20px;
-    }
-    .image-container img {
-      width: 100%;
-      border-radius: 10px;
-      cursor: pointer;
-      object-fit: cover;
-    }
-    .text {
-      font-size: 38px;
-      font-weight: 700;
-      margin: 14px 0 10px 0;
-      color: black;
-      text-align: center;
-    }
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-    .toggle-button {
-      width: 100%;
-      max-width: 300px;
-      padding: 14px 0;
-      font-size: 18px;
-      font-weight: 700;
-      background: #6c9bd2;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.12);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .toggle-button:hover {
-      background: #5a8ac2;
-      transform: translateY(-2px);
-    }
-    .toggle-wrapper {
-      width: 100%;
-      max-width: 320px;
-      margin-top: 10px;
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .toggle-wrapper a img {
-      width: 100%;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    @media (max-width: 400px) {
-      .auth-container {
-        padding: 20px 15px;
-      }
-      .btn {
-        font-size: 16px;
-        padding: 12px 0;
-      }
-      .toggle-button {
-        font-size: 16px;
-        max-width: 100%;
-      }
-      .text {
-        font-size: 32px;
-        margin: 12px 0 8px 0;
-      }
+    :root {
+      --primary:#4361ee;--secondary:#3f37c9;--accent:#4895ef;
+      --light:#f8f9fa;--dark:#212529;--success:#4bb543;
+      --error:#ff3333;--radius:8px;--shadow:0 4px 12px rgba(0,0,0,0.1);
+      --transition:all 0.3s ease;
     }
+    body {
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      background:#f8f9fb;margin:0;padding:20px;color:var(--dark);
+      display:flex;flex-direction:column;align-items:center;
+    }
+    .image-container img{width:100%;max-width:600px;border-radius:10px;cursor:pointer;}
+    .text{font-size:50px;font-weight:bold;margin:10px 0;color:black}
+    .button-group{display:flex;flex-direction:column;align-items:center;margin-top:20px}
+    .toggle-button{margin:10px 0;padding:12px 24px;font-size:16pt;font-weight:600;
+      background:#6c9bd2;color:white;border:none;border-radius:30px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.1);cursor:pointer}
+    .toggle-button:hover{background:#5a8ac2;transform:translateY(-2px)}
+    .toggle-wrapper{display:none;margin-top:10px}
+    .toggle-wrapper img{width:100%;max-width:300px;
+      border-radius:10px;margin-bottom:10px;cursor:pointer;}
+    .auth-container{background:white;border-radius:var(--radius);box-shadow:var(--shadow);
+      width:90%;max-width:500px;margin-bottom:30px}
+    .tab-content{padding:2rem}
+    .btn{background:var(--primary);color:white;padding:0.8rem;border:none;
+      border-radius:var(--radius);font-size:1rem;font-weight:600;
+      cursor:pointer;transition:var(--transition);width:100%;margin-top:10px}
+    .btn-guest{background:#6c757d}
+    .btn-google{background:#4285F4;display:flex;align-items:center;justify-content:center}
+    .user-info{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
+      background:white;padding:8px 12px;border-radius:20px;box-shadow:var(--shadow);
+      font-size:14px;z-index:1000;display:none}
+    .logout-btn{margin-left:8px;background:var(--error);color:white;border:none;
+      border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer}
   </style>
 </head>
 <body>
